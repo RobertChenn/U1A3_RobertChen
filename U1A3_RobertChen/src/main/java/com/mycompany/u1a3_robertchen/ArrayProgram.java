@@ -197,21 +197,22 @@ public class ArrayProgram extends javax.swing.JFrame {
 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         userInput = input.getText();
-        boolean check = true;
+        boolean check = false;
         
         try {
             number = Integer.parseInt(userInput);
             if (number > 0) {
                 for (int i = 0; i < array.length; i++) {
                     if (array[i] == number) {
-                        check = false;
+                        check = true;
                         break;
                     }
                 }
             }
-            if (check == true) {
+            if (check == false) {
                 output.setText("Number does not exist in array.");
             } else {
+                times -= 1;
                 for (int n = 0; n < array.length; n++) {
                     if (array[n] == number) {
                         array[n] = 0;
