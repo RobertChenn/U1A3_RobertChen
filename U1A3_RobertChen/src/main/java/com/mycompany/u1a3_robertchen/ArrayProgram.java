@@ -198,17 +198,15 @@ public class ArrayProgram extends javax.swing.JFrame {
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         userInput = input.getText();
         boolean check = true;
-        int i = 0;
         
         try {
             number = Integer.parseInt(userInput);
             if (number > 0) {
-                while (i < array.length) {
+                for (int i = 0; i < array.length; i++) {
                     if (array[i] == number) {
                         check = false;
                         break;
                     }
-                    i++;
                 }
             }
             if (check == true) {
