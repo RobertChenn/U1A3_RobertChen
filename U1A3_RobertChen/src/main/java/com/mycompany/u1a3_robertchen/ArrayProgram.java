@@ -9,7 +9,9 @@ package com.mycompany.u1a3_robertchen;
  * @author julia
  */
 public class ArrayProgram extends javax.swing.JFrame {
-
+    String userInput;
+    int number, times = 0;
+    int[] array = new int[20];
     /**
      * Creates new form ArrayProgram
      */
@@ -34,7 +36,6 @@ public class ArrayProgram extends javax.swing.JFrame {
         output = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         listOutput = new javax.swing.JTextArea();
-        list = new javax.swing.JButton();
         sum = new javax.swing.JButton();
         sumEven = new javax.swing.JButton();
         sumOdd = new javax.swing.JButton();
@@ -72,13 +73,6 @@ public class ArrayProgram extends javax.swing.JFrame {
         listOutput.setColumns(20);
         listOutput.setRows(5);
         jScrollPane1.setViewportView(listOutput);
-
-        list.setText("List");
-        list.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listActionPerformed(evt);
-            }
-        });
 
         sum.setText("Sum");
         sum.addActionListener(new java.awt.event.ActionListener() {
@@ -131,16 +125,13 @@ public class ArrayProgram extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(list, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(78, 78, 78))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(sum)
-                                .addGap(66, 66, 66))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(sumOdd)
                                     .addComponent(sumEven))
-                                .addGap(50, 50, 50))))))
+                                .addGap(50, 50, 50))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(sum)
+                                .addGap(64, 64, 64))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,17 +147,16 @@ public class ArrayProgram extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(list)
-                        .addGap(18, 18, 18)
+                        .addGap(13, 13, 13)
                         .addComponent(sum)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(sumEven)
-                        .addGap(18, 18, 18)
+                        .addGap(26, 26, 26)
                         .addComponent(sumOdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)))
+                        .addGap(26, 26, 26)))
                 .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -175,7 +165,12 @@ public class ArrayProgram extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumActionPerformed
-        // TODO add your handling code here:
+        int sum = 0;
+        
+        for (int i = 0; i < array.length; i++) {  
+           sum += array[i];  
+        }  
+        output.setText("The sum of all the numbers are: " + sum);
     }//GEN-LAST:event_sumActionPerformed
 
     private void inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputActionPerformed
@@ -183,39 +178,95 @@ public class ArrayProgram extends javax.swing.JFrame {
     }//GEN-LAST:event_inputActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        String userInput = input.getText();
-        int times = 0, number;
-        
-        number = Integer.parseInt(userInput);
-        int array[] = {number};  
-        int x = array.length;  
-        int arrayList[] = new int[x+1];  
-        if (number > 0) {
-            times += 1;
-            array[times] = number;
-            for (int i = 0; i < times; i++) {
-                arrayList[i] = array[i];  
-                listOutput.setText(arrayList[i] + "\n"); 
+        userInput = input.getText();
+         
+        try {
+            number = Integer.parseInt(userInput);
+            if (number > 0) {
+                times += 1;
+                array[times] = number;
+                listOutput.append(Integer.toString(array[times]) + "\n"); 
+            } else {
+                output.setText("Invalid input. Please enter a positive integer.");
             }
-        } else {
+        } 
+        catch (Exception e) {
             output.setText("Invalid input. Please enter a positive integer.");
         }
     }//GEN-LAST:event_addActionPerformed
 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-        // TODO add your handling code here:
+        userInput = input.getText();
+        boolean check = true;
+        int i = 0;
+        
+        try {
+            number = Integer.parseInt(userInput);
+            if (number > 0) {
+                while (i < array.length) {
+                    if (array[i] == number) {
+                        check = false;
+                        break;
+                    }
+                    i++;
+                }
+            }
+            if (check == true) {
+                output.setText("Number does not exist in array.");
+            } else {
+                for (int n = 0; n < array.length; n++) {
+                    if (array[n] == number) {
+                        array[n] = 0;
+                        break; 
+                    }
+                }
+                for (int x = 1; x < array.length; x++) {
+                    if (array[x - 1] == 0) {
+                        array[x - 1] = array[x];
+                        array[x] = 0; 
+                    }
+                }
+                listOutput.setText("");
+                for (int y = 0; y < array.length; y++) {
+                    if (array[y] != 0) {
+                        listOutput.append(Integer.toString(array[y]) + "\n");
+                    }
+                }
+            }
+        }
+        catch (Exception e) {
+            output.setText("Invalid input. Please enter a positive integer.");
+        }
     }//GEN-LAST:event_removeActionPerformed
 
-    private void listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listActionPerformed
-
     private void sumEvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumEvenActionPerformed
-        // TODO add your handling code here:
+        int sumEven = 0;
+        String even = "";
+        
+        for (int i = 0; i < array.length; i++) {  
+           if (array[i] != 0 && array[i] % 2 == 0) {
+               sumEven += array[i];
+               even += Integer.toString(array[i]) + ", ";
+               output.setText("The even integer(s) is/are: " + even + "and the sum of all even integers are: " + sumEven);
+           } else if (array[i] != 0 && array[i] % 2 == 1) {
+               output.setText("There are no even numbers");
+           }  
+        } 
     }//GEN-LAST:event_sumEvenActionPerformed
 
     private void sumOddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumOddActionPerformed
-        // TODO add your handling code here:
+        int sumOdd = 0;
+        String odd = "";
+        
+        for (int i = 0; i < array.length; i++) {  
+           if (array[i] != 0 && array[i] % 2 == 1) {
+               sumOdd += array[i];
+               odd += Integer.toString(array[i]) + ", ";
+               output.setText("The odd integer(s) is/are: " + odd + "and the sum of all odd integers are: " + sumOdd);
+           } else if (array[i] != 0 && array[i] % 2 == 0) {
+               output.setText("There are no odd numbers");
+           } 
+        } 
     }//GEN-LAST:event_sumOddActionPerformed
 
     /**
@@ -257,7 +308,6 @@ public class ArrayProgram extends javax.swing.JFrame {
     private javax.swing.JButton add;
     private javax.swing.JTextField input;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton list;
     private javax.swing.JTextArea listOutput;
     private javax.swing.JTextField output;
     private javax.swing.JLabel prompt;
